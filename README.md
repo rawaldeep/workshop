@@ -4,15 +4,15 @@ This is a Headless Wordpress Project:
 
 ## Prerequisites
 
-*A wordpress installation either by Bitnami, LAMP, XAMPP, MAMP or online server.
-*Node.js and Npm
+* A wordpress installation either by Bitnami, LAMP, XAMPP, MAMP or online server.
+* Node.js and Npm
 
 
 ## install the following plugins to your wordpress installation:
 
-*CPT UI
-*Advanced Custom Fields
-*ACF TO REST API
+* CPT UI
+* Advanced Custom Fields
+* ACF TO REST API
 
 
 ## Presentation & guide
