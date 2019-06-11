@@ -1,26 +1,74 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
+import Images from './Components/Images';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [movies, setMovies] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    
+    // const fetchData = async () => {
+    //   const result = await axios.get(`http://localhost:8090/workshop/wordpress/wp-json/wp/v2/media/${data._links['wp:featuredmedia'][0].href}`);
+    //   setImageUrl(result.data.media_details.sizes.full.source_url);
+    // };
+
+    useEffect(()=>{
+      let mounted = true;
+      const loadData = async() => {
+      await axios.get('http://localhost:8090/workshop/wordpress/wp-json/wp/v2/movies')
+      .then(response =>{
+       
+        if(mounted){
+          setMovies(response.data);
+          
+
+      }
+      })
+      .catch(err => {
+        console.log(err)
+      });
+         
+      };
+      loadData();
+      return () => {
+          mounted = false;
+          setLoaded(true);
+      }
+  },[movies.length]);
+  console.log(movies)
+  if(loaded){
+    return (
+        <div>
+            <h2>Star Wars Movies</h2>
+          {movies.map(movie => (
+             <div key={movie.id}>
+               {/* <img src={imageUrl} /> */}
+               <Images movie={movie}/>
+               <p><strong>Title:</strong> {movie.title.rendered}</p>
+                <p><strong>Release Year:</strong> {movie.acf.release_year}</p>
+                <p><strong>Rating:</strong> {movie.acf.rating}</p>
+               <div><strong>Description:</strong><div dangerouslySetInnerHTML={ {__html: movie.acf.description} } /></div>
+               </div>
+          ))
+        }
+        </div>
+      )
+  }
+  return <h3>Loading..</h3>
 }
+ 
+{//data.movies.map((movie, index) => {
+//   return (
+//   <div key={index}>
+//   <img src={movie._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} />
+//   <p><strong>Title:</strong> {movie.title.rendered}</p>
+//   <p><strong>Release Year:</strong> {movie.acf.release_year}</p>
+//   <p><strong>Rating:</strong> {movie.acf.rating}</p>
+//   <div><strong>Description:</strong><div dangerouslySetInnerHTML={ {__html: movie.acf.description} } /></div>
+//   </div>
+//   )
+// });
+}
+
 
 export default App;
