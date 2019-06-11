@@ -23,7 +23,7 @@ const Images = props => {
     if(isLoaded){
         return (
             <>
-              <img src={imageUrl} />
+              <img src={imageUrl} alt="postImage" />
             </>
           );
       }

@@ -39,9 +39,9 @@ const App = () => {
   if(loaded){
     return (
         <div>
-            <h2>Star Wars Movies</h2>
-          {movies.map(movie => (
-             <div key={movie.id}>
+            <h1>Star Wars Movies</h1>
+          {movies.slice(0).reverse().map(movie => (
+             <div className="post" key={movie.id}>
                {/* <img src={imageUrl} /> */}
                <Images movie={movie}/>
                <p><strong>Title:</strong> {movie.title.rendered}</p>
@@ -55,19 +55,6 @@ const App = () => {
       )
   }
   return <h3>Loading..</h3>
-}
- 
-{//data.movies.map((movie, index) => {
-//   return (
-//   <div key={index}>
-//   <img src={movie._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} />
-//   <p><strong>Title:</strong> {movie.title.rendered}</p>
-//   <p><strong>Release Year:</strong> {movie.acf.release_year}</p>
-//   <p><strong>Rating:</strong> {movie.acf.rating}</p>
-//   <div><strong>Description:</strong><div dangerouslySetInnerHTML={ {__html: movie.acf.description} } /></div>
-//   </div>
-//   )
-// });
 }
 
 
